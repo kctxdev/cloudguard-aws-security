@@ -1,10 +1,10 @@
-variable "aws_region" { 
+variable "aws_region" {
   type    = string
-  default = "us-east-1" 
+  default = "us-east-1"
 }
-variable "environment" { 
+variable "environment" {
   type    = string
-  default = "prod" 
+  default = "prod"
 }
 variable "vpc_cidr" { type = string }
 variable "public_subnet_cidr" { type = string }

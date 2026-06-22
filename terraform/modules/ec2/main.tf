@@ -34,7 +34,7 @@ resource "aws_instance" "server" {
   instance_type        = "t2.micro" # Opção gratuita (Free Tier)
   subnet_id            = var.subnet_id
   iam_instance_profile = var.iam_instance_profile
-  
+
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
 
   # Como o acesso é via SSM, não precisamos de chave SSH (Key Pair)
