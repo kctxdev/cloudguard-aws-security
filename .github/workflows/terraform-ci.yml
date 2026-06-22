@@ -1,0 +1,47 @@
+name: Terraform CI & Security Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform-validation:
+    name: Validação e Formatação
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ">=1.5.0"
+
+      - name: Terraform Init (Apenas checagem local)
+        run: terraform init -backend=false
+        working-directory: ./terraform
+
+      - name: Verificar Formatação (fmt)
+        run: terraform fmt -check -recursive
+        working-directory: ./terraform
+
+      - name: Validar Sintaxe (validate)
+        run: terraform validate
+        working-directory: ./terraform
+
+  security-scan:
+    name: Escaneamento de Segurança (tfsec)
+    runs-on: ubuntu-latest
+    needs: terraform-validation
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Rodar tfsec (Análise de Segurança)
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: ./terraform
