@@ -238,6 +238,5 @@ terraform destroy -var-file="terraform.tfvars"
 
 ## Autor
 
-Criado e mantido por **[Seu Nome Aqui]**
+Criado e mantido por **Johnata**
 
-🔗 [Meu LinkedIn](#) | 💻 [Meu GitHub](#)
